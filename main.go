@@ -35,3 +35,14 @@ func GetPathToDirectory(root, targetDir string) (string, error) {
 	})
 	return pathToDir, err
 }
+
+func GetPathToDirectory_WalkDir(root, targetDir string) (string, error) {
+	var pathToDir string
+	err := filepath.WalkDir(root, func(path string, dir os.DirEntry, err error) error {
+		if dir.IsDir() && dir.Name() == targetDir {
+			pathToDir = path
+		}
+		return nil
+	})
+	return pathToDir, err
+}
